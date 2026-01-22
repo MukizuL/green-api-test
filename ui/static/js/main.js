@@ -68,7 +68,7 @@ async function getStateInstance() {
 		return;
 	}
 
-	const response = await fetch("/api/v1/send-message", {
+	const response = await fetch("/api/v1/get-state-instance", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json"

@@ -4,6 +4,6 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      RUN_ADDRESS: "0.0.0.0:8880"
+      RUN_ADDRESS: ":8880"
     ports:
       - "8880:8880"

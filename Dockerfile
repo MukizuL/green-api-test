@@ -20,6 +20,7 @@ FROM scratch AS run-stage
 
 WORKDIR /app
 
+COPY --from=build-stage /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=build-stage /api /api
 COPY ./ui ./ui
 
