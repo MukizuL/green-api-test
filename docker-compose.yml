@@ -1,0 +1,9 @@
+services:
+  green-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      RUN_ADDRESS: "0.0.0.0:8880"
+    ports:
+      - "8880:8880"

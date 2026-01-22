@@ -2,7 +2,6 @@ package server
 
 import (
 	"context"
-	"crypto/tls"
 	"errors"
 	"greep-api-test/internal/config"
 	"net/http"
@@ -14,14 +13,9 @@ import (
 )
 
 func newHTTPServer(lc fx.Lifecycle, cfg *config.Config, router *gin.Engine, logger *zap.Logger) *http.Server {
-	tlsConfig := &tls.Config{
-		CurvePreferences: []tls.CurveID{tls.X25519, tls.CurveP256},
-	}
-
 	srv := &http.Server{
 		Addr:         cfg.Addr,
 		Handler:      router.Handler(),
-		TLSConfig:    tlsConfig,
 		IdleTimeout:  time.Minute,
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
@@ -34,7 +28,7 @@ func newHTTPServer(lc fx.Lifecycle, cfg *config.Config, router *gin.Engine, logg
 			var err error
 
 			go func() {
-				err = srv.ListenAndServeTLS("./tls/cert.pem", "./tls/key.pem")
+				err = srv.ListenAndServe()
 			}()
 
 			if err != nil && !errors.Is(err, http.ErrServerClosed) {
